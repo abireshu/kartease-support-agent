@@ -147,34 +147,44 @@ Answers are saved in `results.txt`. If the free daily quota runs out, run it aga
 
 ## Test results
 
-I ran the 14 test questions through the agent. A question is a **Pass** only if the answer has the expected content **and** the right tools were used.
+I ran the 14 test questions through the agent. A question is a **Pass** only if the answer has the expected content **and** the right tools were used. The full answers are saved in `results.txt`.
 
 | # | Question | Expected | Tools used | Result |
 | --- | --- | --- | --- | --- |
 | 1 | How many days do I have to return a phone? | 10 days from delivery | search_policies | Pass |
 | 2 | Can I return earbuds if I just don't like them? | No, hygiene reasons (unless damaged or defective) | search_policies | Pass |
 | 3 | What is the delivery charge on a ₹350 order? | ₹40 (free from ₹499) | search_policies | Pass |
-| 4 | If I order at 4 PM, when will it be dispatched? | Next working day (cut-off 2 PM) | TODO | TODO |
+| 4 | If I order at 4 PM, when will it be dispatched? | Next working day (cut-off 2 PM) | search_policies | Pass |
 | 5 | Can I use a coupon together with a bank offer? | No | search_policies | Pass |
-| 6 | How long is Extended Protection and when can I buy it? | 1 extra year; within 30 days of delivery | TODO | TODO |
-| 7 | Can I pay cash on delivery for a ₹12,000 order? | No, COD only up to ₹10,000 | TODO | TODO |
-| 8 | Where is my order KE1002? | Shipped; expected 2026-10-07 | TODO | TODO |
-| 9 | What is the status of order ke1005? | Processing; expected 2026-10-08 | TODO | TODO |
-| 10 | What is the status of order KE9999? | No order found | TODO | TODO |
-| 11 | My return for KE1006 was picked up. When will I get my refund? | Quality check, then 5 to 7 working days to the debit card | TODO | TODO |
-| 12 | I paid cash for KE1009. If I return it, how do I get my money back? | Cash on Delivery; refund to bank account or UPI in 5 to 7 working days | TODO | TODO |
-| 13 | Who is the CEO of Google? | Sorry message | TODO | TODO |
-| 14 | Write me a poem about Diwali. | Sorry message | TODO | TODO |
+| 6 | How long is Extended Protection and when can I buy it? | 1 extra year; within 30 days of delivery | search_policies | Pass |
+| 7 | Can I pay cash on delivery for a ₹12,000 order? | No, COD only up to ₹10,000 | search_policies | Pass |
+| 8 | Where is my order KE1002? | Shipped; expected 2026-10-07 | get_order_status | Pass |
+| 9 | What is the status of order ke1005? | Processing; expected 2026-10-08 | get_order_status | Pass |
+| 10 | What is the status of order KE9999? | No order found | get_order_status | Pass |
+| 11 | My return for KE1006 was picked up. When will I get my refund? | Quality check, then 5 to 7 working days to the debit card | get_order_status, search_policies | Pass |
+| 12 | I paid cash for KE1009. If I return it, how do I get my money back? | Cash on Delivery; refund to bank account or UPI in 5 to 7 working days | get_order_status, search_policies | Pass |
+| 13 | Who is the CEO of Google? | Sorry message | none | Pass |
+| 14 | Write me a poem about Diwali. | Sorry message | none | Pass |
 
-**Unit tests:** 3 pytest tests for the order tool, all passing (known order, lowercase order ID, unknown order).
+**Result: 14 out of 14 passed.**
 
-### One fix I tried
+## Unit tests
 
-- **Question that failed:** TODO
-- **What went wrong:** TODO
-- **What I changed (one thing only):** TODO
-- **Result after the change:** TODO
+The unit tests check the order tool (`get_order_status`). They do not call Gemini, so they run fast and cost nothing.
 
+| Test | What it checks | Result |
+| --- | --- | --- |
+| `test_known_order` | A real order ID (KE1002) returns the status "Shipped" and the product name | Pass |
+| `test_lowercase_order_id` | A lowercase ID (`ke1005`) still finds the order | Pass |
+| `test_unknown_order` | A fake ID (KE9999) returns "No order found" and does not crash | Pass |
+
+Run them with:
+
+```bash
+python -m pytest
+```
+
+Expected output: `3 passed`
 ---
 
 ## Known limitations
@@ -184,18 +194,3 @@ I ran the 14 test questions through the agent. A question is a **Pass** only if 
 
 ---
 
-## Demo
-
-TODO: add your demo video link, or write "Live demo".
-
-The demo shows 4 kinds of question:
-1. Order question: "Where is my order KE1002?"
-2. Policy question: "How many days do I have to return a phone?"
-3. Both tools: "My return for KE1006 was picked up. When will I get my refund?"
-4. Unrelated: "Write me a poem about Diwali."
-
----
-
-## Author
-
-TODO: your name and course or batch.
