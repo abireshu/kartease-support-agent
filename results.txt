@@ -1,0 +1,56 @@
+#1: How many days do I have to return a phone?
+Tools: ['search_policies']
+Answer: You have 10 days from the date of delivery to return a phone.
+------------------------------------------------------------
+#2: Can I return earbuds if I just don't like them?
+Tools: ['search_policies']
+Answer: Earphones and earbuds cannot be returned for hygiene reasons unless they arrive damaged or defective. Unfortunately, this means they cannot be returned if you simply change your mind.
+------------------------------------------------------------
+#3: What is the delivery charge on a ₹350 order?
+Tools: ['search_policies']
+Answer: The delivery charge on a ₹350 order is **₹40**. Free delivery applies to orders of ₹499 or more.
+------------------------------------------------------------
+#5: Can I use a coupon together with a bank offer?
+Tools: ['search_policies']
+Answer: No, coupons cannot be combined with bank offers on the same order. Additionally, only one coupon can be used per order.
+
+#4: If I order at 4 PM, when will it be dispatched?
+Tools: ['search_policies']
+Answer: Orders placed after 2 PM are dispatched on the next working day!
+------------------------------------------------------------
+#6: How long is Extended Protection and when can I buy it?
+Tools: ['search_policies']
+Answer: KartEase Extended Protection gives you 1 extra year of coverage after the manufacturer warranty ends. You can purchase it within 30 days of delivery!
+------------------------------------------------------------
+#7: Can I pay cash on delivery for a ₹12,000 order?
+Tools: ['search_policies']
+Answer: Sorry, Cash on Delivery (COD) is only available for orders up to ₹10,000, so it isn't available for a ₹12,000 order.
+------------------------------------------------------------
+#8: Where is my order KE1002?
+Tools: ['get_order_status']
+Answer: Your order KE1002 (Prestige pressure cooker) has been shipped and is expected to be delivered by October 7, 2026!
+------------------------------------------------------------
+#9: What is the status of order ke1005?
+Tools: ['get_order_status']
+Answer: Order KE1005 (HP laptop 15-inch) is currently **Processing** and was ordered on October 1, 2026. It is expected to arrive by October 8, 2026.
+------------------------------------------------------------
+#10: What is the status of order KE9999?
+Tools: ['get_order_status']
+Answer: I couldn't find an order with the ID KE9999. Could you please double-check your order number and let me know?
+------------------------------------------------------------
+#11: My return for KE1006 was picked up. When will I get my refund?
+Tools: ['get_order_status', 'search_policies']
+Answer: Your refund will be sent to your original payment method within 5 to 7 working days after the item passes the quality check at our warehouse, which typically happens within 2 days of pickup.
+------------------------------------------------------------
+#12: I paid cash for KE1009. If I return it, how do I get my money back?
+Tools: ['get_order_status', 'search_policies']
+Answer: For Cash on Delivery orders, your refund will be deposited into your bank account or UPI ID within 5 to 7 working days after the returned item passes the quality check at our warehouse!
+------------------------------------------------------------
+#13: Who is the CEO of Google?
+Tools: none
+Answer: Sorry, I can only help with KartEase orders and policies.
+------------------------------------------------------------
+#14: Write me a poem about Diwali.
+Tools: none
+Answer: Sorry, I can only help with KartEase orders and policies.
+------------------------------------------------------------
