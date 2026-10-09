@@ -24,7 +24,6 @@ llm = ChatGoogleGenerativeAI(
     temperature=0,
 )
 
-# Convert plain functions into LangChain tools using @tool/tool decorator
 tools = [tool(get_order_status), tool(search_policies)]
 
 agent = create_agent(
@@ -34,18 +33,19 @@ agent = create_agent(
 )
 
 
-def ask(agent, question: str) -> str:
-    """Invokes the agent and returns the final assistant message content."""
+def ask_with_tools(agent, question: str):
+    """Invokes the agent and returns both the answer text and a list of tool names used."""
     result = agent.invoke({"messages": [{"role": "user", "content": question}]})
-    last_message = result["messages"][-1]
+    tools_used = []
     
-    # Handle response content properly whether returned as string or content list
-    if hasattr(last_message, "text"):
-        return last_message.text
-    elif isinstance(last_message.content, str):
-        return last_message.content
-    else:
-        return str(last_message.content)
+    for msg in result["messages"]:
+        for call in getattr(msg, "tool_calls", None) or []:
+            if call["name"] not in tools_used:
+                tools_used.append(call["name"])
+                
+    last_message = result["messages"][-1]
+    answer = last_message.text if hasattr(last_message, "text") else str(last_message.content)
+    return answer, tools_used
 
 
 if __name__ == "__main__":
@@ -56,8 +56,10 @@ if __name__ == "__main__":
         "What is the status of order KE9999?",
     ]
 
-    print("=== Testing KartEase Support Agent ===\n")
+    print("=== Testing KartEase Support Agent with Tool Tracking ===\n")
     for q in test_questions:
+        answer, used = ask_with_tools(agent, q)
         print(f"Q: {q}")
-        print(f"A: {ask(agent, q)}")
+        print(f"Tools used: {used}")
+        print(f"A: {answer}")
         print("-" * 60)
